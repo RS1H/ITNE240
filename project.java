@@ -81,3 +81,30 @@ class QCons extends Thread {
         }
     }
 }
+
+public class project {
+    public static void main(String[] args) throws Exception {
+        //pipe
+        System.out.println("-- pipes --");
+        PipedOutputStream out = new PipedOutputStream();
+        PipedInputStream in = new PipedInputStream(out);
+        Prod p = new Prod(out);
+        Cons c = new Cons(in);
+        p.start();
+        c.start();
+        p.join();
+        c.join();
+
+        //qeuue
+        System.out.println("\n-- queue --");
+        BlockingQueue<String> q = new ArrayBlockingQueue<>(2);
+        QProd qp = new QProd(q);
+        QCons qc = new QCons(q);
+        qp.start();
+        qc.start();
+        qp.join();
+        qc.join();
+
+        
+    }
+}
