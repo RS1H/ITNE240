@@ -62,3 +62,22 @@ class QProd extends Thread {
         }
     }
 }
+
+//queue consumer
+class QCons extends Thread {
+    private BlockingQueue<String> q;
+    public QCons(BlockingQueue<String> q) {
+        this.q = q;
+    }
+    public void run() {
+        while (true) {
+            try {
+                String m = q.take();
+                System.out.println("QCons got: " + m.toUpperCase());
+                if (m.equals("end")) break;
+            } catch (Exception e) {
+                
+            }
+        }
+    }
+}
