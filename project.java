@@ -42,3 +42,23 @@ class Cons extends Thread {
         }
     }
 }
+
+// queue producer
+class QProd extends Thread {
+    private BlockingQueue<String> q;
+    String[] msgs = {"network", "operating", "system", "project"};
+    public QProd(BlockingQueue<String> q) {
+        this.q = q;
+    }
+    public void run() {
+        for (String m : msgs) {
+            try {
+                q.put(m);
+                System.out.println("QProd: " + m);
+                Thread.sleep(2000);
+            } catch (Exception e) {
+                //s
+            }
+        }
+    }
+}
